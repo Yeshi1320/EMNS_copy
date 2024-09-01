@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management and Notification System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            background-image: url('/picture/JNEC.jpeg'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            text-align: center;
+            color: rgb(7, 7, 7);
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 200px;
+        }
+        .get-started {
+            background-color: #00d8ff;
+            color: black;
+            border: none;
+            padding: 15px;
+            width: 50%;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .get-started i {
+            margin-left: 5px;
+        }
+        .footer-message {
+            font-size: 14px;
+            color: rgb(8, 8, 8);
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .login-container {
+            display: none;
+            text-align: center;
+            background-color: #020c0c;
+            padding: 30px;
+            border-radius: 20px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+        }
+        .login-container.active {
+            display: block;
+        }
+        .login-container a {
+            text-decoration: none;
+            color: black;
+            background-color: #b3b3b3;
+            padding: 10px 0;
+            display: block;
+            margin: 10px 0;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        .role-selection-container {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+        }
+        .role-selection-container.active {
+            display: block;
+        }
+        .role-selection-container button {
+            border: none;
+            padding: 15px;
+            width: 60%;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px 0;
+            color: white;
+        }
+        .staff-btn {
+            background-color: #00d8ff;
+        }
+        .student-btn {
+            background-color: #9b59b6;
+        }
+        .role-selection-container i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="menu-icon">&#9776;</div>
+        <h1>EVENT MANAGEMENT AND NOTIFICATION SYSTEM</h1>
+        <button class="get-started" id="getStartedButton" onclick="showLogin()">GET STARTED <i>&#9654;</i></button>
+        <p class="footer-message">Door is open for you all to explore about any events.</p>
+        
+        <div class="login-container" id="loginContainer">
+            <a href="#" onclick="showRoleSelection()">Log in</a>
+            <a href="#">Log out</a>
+            <a href="#">Support</a>
+            <a href="#">About us</a>
+        </div>
+
+        <div class="role-selection-container" id="roleSelectionContainer">
+            <button class="staff-btn"><i>&#128100;</i> Staff</button>
+            <button class="student-btn"><i>&#127891;</i> Student</button>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('loginContainer').classList.add('active');
+            document.getElementById('getStartedButton').style.display = 'none'; // Hide "GET STARTED" button when login is shown
+        }
+
+        function showRoleSelection() {
+            document.getElementById('loginContainer').classList.remove('active');
+            document.getElementById('roleSelectionContainer').classList.add('active');
+        }
+    </script>
+    
+</body>
+</html>
