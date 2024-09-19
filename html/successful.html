@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management and Notification System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            background-image: url('/html/picture/JNEC.jpeg'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            text-align: center;
+            color: rgb(7, 7, 7);
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 200px;
+        }
+        .get-started {
+            background-color: #00d8ff;
+            color: black;
+            border: none;
+            padding: 15px;
+            width: 50%;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .get-started i {
+            margin-left: 5px;
+        }
+        .footer-message {
+            font-size: 14px;
+            color: rgb(8, 8, 8);
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .login-container {
+            display: none;
+            text-align: center;
+            background-color: #020c0c;
+            padding: 30px;
+            border-radius: 20px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+        }
+        .login-container.active {
+            display: block;
+        }
+        .login-container a {
+            text-decoration: none;
+            color: black;
+            background-color: #b3b3b3;
+            padding: 10px 0;
+            display: block;
+            margin: 10px 0;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        .role-selection-container {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+        }
+        .role-selection-container.active {
+            display: block;
+        }
+        .role-selection-container button {
+            border: none;
+            padding: 15px;
+            width: 60%;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px 0;
+            color: white;
+        }
+        .staff-btn {
+            background-color: #00d8ff;
+        }
+        .student-btn {
+            background-color: #9b59b6;
+        }
+        .role-selection-container i {
+            margin-right: 10px;
+        }
+        .login-form {
+            display: none;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            position: absolute;
+            top: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+        }
+        .login-form.active {
+            display: block;
+        }
+        .login-form input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .login-form button {
+            background-color: #00d8ff;
+            color: black;
+            border: none;
+            padding: 15px;
+            width: 60%;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="menu-icon">&#9776;</div>
+        <h1>EVENT MANAGEMENT AND NOTIFICATION SYSTEM</h1>
+        <button class="get-started" id="getStartedButton" onclick="showLogin()">GET STARTED <i>&#9654;</i></button>
+        <p class="footer-message">Door is open for you all to explore about any events.</p>
+        
+        <div class="login-container" id="loginContainer">
+            <a href="#" onclick="showRoleSelection()">Log in</a>
+            <a href="#">Log out</a>
+            <a href="#">Support</a>
+            <a href="#">About us</a>
+        </div>
+
+        <div class="role-selection-container" id="roleSelectionContainer">
+            <button class="staff-btn" onclick="showLoginForm('staff')"><i>&#128100;</i> Staff</button>
+            <button class="student-btn" onclick="showLoginForm('student')"><i>&#127891;</i> Student</button>
+        </div>
+
+        <div class="login-form" id="studentLoginForm">
+            <h2>Student Login</h2>
+            <input type="text" placeholder="Email" id="studentEmail">
+            <input type="password" placeholder="Password" id="studentPassword">
+            <input type="text" placeholder="Phone Number" id="studentPhone">
+            <input type="text" placeholder="Student ID" id="studentID">
+            <button onclick="loginStudent()">Login</button>
+        </div>
+
+        <div class="login-form" id="staffLoginForm">
+            <h2>Staff Login</h2>
+            <input type="text" placeholder="Email" id="staffEmail">
+            <input type="password" placeholder="Password" id="staffPassword">
+            <input type="text" placeholder="Phone Number" id="staffPhone">
+            <input type="text" placeholder="Employee ID" id="staffID">
+            <button onclick="loginStaff()">Login</button>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('loginContainer').classList.add('active');
+            document.getElementById('getStartedButton').style.display = 'none'; // Hide "GET STARTED" button when login is shown
+        }
+
+        function showRoleSelection() {
+            document.getElementById('loginContainer').classList.remove('active');
+            document.getElementById('roleSelectionContainer').classList.add('active');
+        }
+
+        function showLoginForm(role) {
+            document.getElementById('roleSelectionContainer').classList.remove('active');
+            if (role === 'student') {
+                document.getElementById('studentLoginForm').classList.add('active');
+                document.getElementById('staffLoginForm').classList.remove('active');
+            } else if (role === 'staff') {
+                document.getElementById('staffLoginForm').classList.add('active');
+                document.getElementById('studentLoginForm').classList.remove('active');
+            }
+        }
+
+        function loginStudent() {
+            // Get form values
+            const email = document.getElementById('studentEmail').value;
+            const password = document.getElementById('studentPassword').value;
+            const phone = document.getElementById('studentPhone').value;
+            const studentID = document.getElementById('studentID').value;
+            
+            // Add logic for student login validation here
+            if (email && password && phone && studentID) {
+                // Redirect to the success page
+                window.location.href = 'login-success.html';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+
+        function loginStaff() {
+            // Get form values
+            const email = document.getElementById('staffEmail').value;
+            const password = document.getElementById('staffPassword').value;
+            const phone = document.getElementById('staffPhone').value;
+            const employeeID = document.getElementById('staffID').value;
+            
+            // Add logic for staff login validation here
+            if (email && password && phone && employeeID) {
+                // Redirect to the success page
+                window.location.href = 'login-success.html';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>
+    
+</body>
+</html>
