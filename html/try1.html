@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management and Notification System</title>
     <style>
+        /* Your previous CSS styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -41,9 +42,6 @@
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-        }
-        .get-started i {
-            margin-left: 5px;
         }
         .footer-message {
             font-size: 14px;
@@ -115,9 +113,6 @@
         .student-btn {
             background-color: #9b59b6;
         }
-        .role-selection-container i {
-            margin-right: 10px;
-        }
         .login-form {
             display: none;
             text-align: center;
@@ -152,51 +147,71 @@
             cursor: pointer;
             margin-top: 10px;
         }
+        .google-button {
+            background-color: #DB4437;
+            color: white;
+            padding: 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            border: none;
+            margin-top: 10px;
+            width: 60%;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="menu-icon">&#9776;</div>
+        <div class="menu-icon">☰</div>
         <h1>EVENT MANAGEMENT AND NOTIFICATION SYSTEM</h1>
-        <button class="get-started" id="getStartedButton" onclick="showLogin()">GET STARTED <i>&#9654;</i></button>
+        <button class="get-started" id="getStartedButton" onclick="showLogin()">GET STARTED <i>▶</i></button>
         <p class="footer-message">Door is open for you all to explore about any events.</p>
-        
+
         <div class="login-container" id="loginContainer">
             <a href="#" onclick="showRoleSelection()">Log in</a>
             <a href="#">Log out</a>
             <a href="#">Support</a>
             <a href="#">About us</a>
+            <a href="#" onclick="showRoleSelection()">Register</a> <!-- Register button added here -->
         </div>
 
         <div class="role-selection-container" id="roleSelectionContainer">
-            <button class="staff-btn" onclick="showLoginForm('staff')"><i>&#128100;</i> Staff</button>
-            <button class="student-btn" onclick="showLoginForm('student')"><i>&#127891;</i> Student</button>
+            <button class="staff-btn" onclick="showLoginForm('staff')"><i>👤</i> Staff</button>
+            <button class="student-btn" onclick="showLoginForm('student')"><i>🎓</i> Student</button>
         </div>
 
         <div class="login-form" id="studentLoginForm">
-            <h2>Student Login</h2>
+            <h2>Student Registration</h2>
             <input type="text" placeholder="Email" id="studentEmail">
             <input type="password" placeholder="Password" id="studentPassword">
             <input type="text" placeholder="Phone Number" id="studentPhone">
             <input type="text" placeholder="Student ID" id="studentID">
-            <button onclick="loginStudent()">Register</button>
+            <button onclick="registerStudent()">Register</button>
         </div>
 
         <div class="login-form" id="staffLoginForm">
-            <h2>Staff Login</h2>
+            <h2>Staff Registration</h2>
             <input type="text" placeholder="Email" id="staffEmail">
             <input type="password" placeholder="Password" id="staffPassword">
             <input type="text" placeholder="Phone Number" id="staffPhone">
             <input type="text" placeholder="Employee ID" id="staffID">
-            <button onclick="loginStaff()">Register</button>
+            <button onclick="registerStaff()">Register</button>
+        </div>
+
+        <div class="login-form" id="loginForm">
+            <h2>Login</h2>
+            <input type="text" placeholder="Email" id="loginEmail">
+            <input type="password" placeholder="Password" id="loginPassword">
+            <button onclick="loginUser()">Login</button>
+            <button class="google-button" onclick="googleLogin()">Or continue with Google</button>
         </div>
     </div>
 
     <script>
         function showLogin() {
             document.getElementById('loginContainer').classList.add('active');
-            document.getElementById('getStartedButton').style.display = 'none'; // Hide "GET STARTED" button when login is shown
+            document.getElementById('getStartedButton').style.display = 'none';
         }
 
         function showRoleSelection() {
@@ -206,47 +221,72 @@
 
         function showLoginForm(role) {
             document.getElementById('roleSelectionContainer').classList.remove('active');
-            if (role === 'student') {
-                document.getElementById('studentLoginForm').classList.add('active');
-                document.getElementById('staffLoginForm').classList.remove('active');
-            } else if (role === 'staff') {
-                document.getElementById('staffLoginForm').classList.add('active');
-                document.getElementById('studentLoginForm').classList.remove('active');
-            }
+            // Load the login form with relevant role details
+            document.getElementById('loginForm').classList.add('active');
+            // Optionally, you could modify the login form title or fields based on role to show user type
         }
 
-        function loginStudent() {
-            // Get form values
+        function registerStudent() {
             const email = document.getElementById('studentEmail').value;
             const password = document.getElementById('studentPassword').value;
             const phone = document.getElementById('studentPhone').value;
             const studentID = document.getElementById('studentID').value;
             
-            // Add logic for student login validation here
             if (email && password && phone && studentID) {
-                // Redirect to the success page
-                window.location.href = 'login-success.html';
+                alert('Student Registered! Redirecting to login page...');
+                document.getElementById('studentLoginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('active');
             } else {
                 alert('Please fill in all fields.');
             }
         }
 
-        function loginStaff() {
-            // Get form values
+        function registerStaff() {
             const email = document.getElementById('staffEmail').value;
             const password = document.getElementById('staffPassword').value;
             const phone = document.getElementById('staffPhone').value;
             const employeeID = document.getElementById('staffID').value;
             
-            // Add logic for staff login validation here
             if (email && password && phone && employeeID) {
-                // Redirect to the success page
-                window.location.href = 'login-success.html';
+                alert('Staff Registered! Redirecting to login page...');
+                document.getElementById('staffLoginForm').classList.remove('active');
+                document.getElementById('loginForm').classList.add('active');
             } else {
                 alert('Please fill in all fields.');
             }
         }
+
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Here you would normally validate with your backend
+            if (email && password) {
+                alert('Login successful!');
+                // Redirect to a different page if login is successful
+            } else {
+                alert('Please enter email and password.');
+            }
+        }
+
+        function googleLogin() {
+            // Here you would initiate the Google OAuth 2.0 login process
+            alert('Redirecting to Google for authentication...');
+            // Ideally, redirect to your backend to handle authentication
+        }
+
+        // Updated to show the registration forms
+        function showRegistrationForm(role) {
+            document.getElementById('roleSelectionContainer').classList.remove('active');
+
+            // Show the respective registration form based on role type
+            if (role === 'student') {
+                document.getElementById('studentLoginForm').classList.add('active');
+            } else {
+                document.getElementById('staffLoginForm').classList.add('active');
+            }
+        }
     </script>
-    
+
 </body>
 </html>

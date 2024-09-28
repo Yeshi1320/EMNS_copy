@@ -157,9 +157,9 @@
 <body>
 
     <div class="container">
-        <div class="menu-icon">&#9776;</div>
+        <div class="menu-icon">☰</div>
         <h1>EVENT MANAGEMENT AND NOTIFICATION SYSTEM</h1>
-        <button class="get-started" id="getStartedButton" onclick="showLogin()">GET STARTED <i>&#9654;</i></button>
+        <button class="get-started" id="getStartedButton" onclick="showLogin()">GET STARTED <i>▶</i></button>
         <p class="footer-message">Door is open for you all to explore about any events.</p>
         
         <div class="login-container" id="loginContainer">
@@ -170,26 +170,26 @@
         </div>
 
         <div class="role-selection-container" id="roleSelectionContainer">
-            <button class="staff-btn" onclick="showLoginForm('staff')"><i>&#128100;</i> Staff</button>
-            <button class="student-btn" onclick="showLoginForm('student')"><i>&#127891;</i> Student</button>
+            <button class="staff-btn" onclick="showLoginForm('staff')"><i>👤</i> Staff</button>
+            <button class="student-btn" onclick="showLoginForm('student')"><i>🎓</i> Student</button>
         </div>
 
         <div class="login-form" id="studentLoginForm">
-            <h2>Student Login</h2>
+            <h2>Student Registration</h2>
             <input type="text" placeholder="Email" id="studentEmail">
             <input type="password" placeholder="Password" id="studentPassword">
             <input type="text" placeholder="Phone Number" id="studentPhone">
             <input type="text" placeholder="Student ID" id="studentID">
-            <button onclick="loginStudent()">Register</button>
+            <button onclick="registerStudent()">Register</button>
         </div>
 
         <div class="login-form" id="staffLoginForm">
-            <h2>Staff Login</h2>
+            <h2>Staff Registration</h2>
             <input type="text" placeholder="Email" id="staffEmail">
             <input type="password" placeholder="Password" id="staffPassword">
             <input type="text" placeholder="Phone Number" id="staffPhone">
             <input type="text" placeholder="Employee ID" id="staffID">
-            <button onclick="loginStaff()">Register</button>
+            <button onclick="registerStaff()">Register</button>
         </div>
     </div>
 
@@ -206,47 +206,64 @@
 
         function showLoginForm(role) {
             document.getElementById('roleSelectionContainer').classList.remove('active');
-            if (role === 'student') {
-                document.getElementById('studentLoginForm').classList.add('active');
-                document.getElementById('staffLoginForm').classList.remove('active');
-            } else if (role === 'staff') {
-                document.getElementById('staffLoginForm').classList.add('active');
-                document.getElementById('studentLoginForm').classList.remove('active');
-            }
+            document.getElementById(role + 'LoginForm').classList.add('active');
         }
 
-        function loginStudent() {
-            // Get form values
+        function registerStudent() {
             const email = document.getElementById('studentEmail').value;
             const password = document.getElementById('studentPassword').value;
             const phone = document.getElementById('studentPhone').value;
             const studentID = document.getElementById('studentID').value;
             
-            // Add logic for student login validation here
             if (email && password && phone && studentID) {
-                // Redirect to the success page
-                window.location.href = 'login-success.html';
+                // Simulate sending data to server
+                sendRegistrationData('student', { email, password, phone, studentID });
             } else {
                 alert('Please fill in all fields.');
             }
         }
 
-        function loginStaff() {
-            // Get form values
+        function registerStaff() {
             const email = document.getElementById('staffEmail').value;
             const password = document.getElementById('staffPassword').value;
             const phone = document.getElementById('staffPhone').value;
             const employeeID = document.getElementById('staffID').value;
             
-            // Add logic for staff login validation here
             if (email && password && phone && employeeID) {
-                // Redirect to the success page
-                window.location.href = 'login-success.html';
+                // Simulate sending data to server
+                sendRegistrationData('staff', { email, password, phone, employeeID });
             } else {
                 alert('Please fill in all fields.');
             }
         }
+
+        function sendRegistrationData(role, data) {
+            // Perform AJAX request here to your backend service to send an email
+            // Example using Fetch API (this won't work as is without a real backend):
+            /*
+            fetch('https://your-server.com/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role, data })
+            })
+            .then(response => response.json())
+            .then(responseData => {
+                if (responseData.success) {
+                    alert('Registration successful! Check your email for login details.');
+                } else {
+                    alert('Registration failed: ' + responseData.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error in registration');
+            });
+            */
+            console.log('Registered ' + role + ' with data:', data);
+            // Simulate success response
+            alert('Registration successful! Check your email for login details. This is just a simulation.');
+        }
     </script>
-    
+
 </body>
 </html>
